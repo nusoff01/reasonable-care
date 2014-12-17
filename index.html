@@ -93,7 +93,12 @@
                 </h1>
                 <div class="pref-tile">
                     <div class="pref-tile-header">
-                        <h2>Deductible vs. Premium</h2>
+                        <h2>
+                            <button class="btn exp-button primary-button" type="button" style="float:right">
+                                <i class="fa fa-angle-double-down"></i>
+                            </button>
+                            Deductible vs. Premium
+                        </h2>
                     </div>
                     <div class="expandable">
 
@@ -101,9 +106,6 @@
                                 Turn on or off: &nbsp;&nbsp;
                                 <input class="sl1" style="width: 50px;"  data-slider-min="0"
                                 data-slider-max="1"/>
-                                <button class="btn exp-button" type="button" style="float:right">
-                                    <i class="fa fa-angle-double-down"></i> expand
-                                </button>
                             </h3>
                     </div>
                     <div class="pref-tile-body">
@@ -117,16 +119,18 @@
 
                 <div class="pref-tile">
                     <div class="pref-tile-header">
-                        <h2>Covered Drugs</h2>
+                        <h2>Covered Drugs
+                        <button class="btn exp-button primary-button" type="button" style="float:right">
+                                <i class="fa fa-angle-double-down"></i>
+                            </button>
+                        </h2>
                     </div>
                     <div class="expandable">
                         <h3 style="text-align:center; margin:0px;padding-bottom:10px">
                             Turn on or off: &nbsp;&nbsp;
                             <input class="sl1" style="width: 50px;"  data-slider-min="0"
                             data-slider-max="1" data-slider-val="0"/>
-                            <button class="btn exp-button" type="button" style="float:right">
-                                <i class="fa fa-angle-double-down"></i> expand
-                            </button>
+
                         </h3>
                     </div>
                     <div class="pref-tile-body">
@@ -141,16 +145,20 @@
 
                 <div class="pref-tile">
                     <div class="pref-tile-header">
-                        <h2>Primary Care</h2>
+                        <h2>
+                            <button class="btn exp-button" type="button" style="float:right">
+                                <i class="fa fa-angle-double-down"></i>
+                            </button>
+                            Primary Care
+                        </h2>
+                        <!-- <h4 style="float:right">filler</h4> -->
+
                     </div>
                     <div class="expandable">
                         <h3 style="text-align:center; margin:0px;padding-bottom:10px">
                             Turn on or off: &nbsp;&nbsp;
                             <input class="sl1" style="width: 50px;"  data-slider-min="0"
                             data-slider-max="1"/>
-                            <button class="btn exp-button" type="button" style="float:right">
-                                <i class="fa fa-angle-double-down"></i> expand
-                            </button>
                         </h3>
                     </div>
                     <div class="pref-tile-body">
@@ -187,6 +195,114 @@
                         </div>
                     </div>
                 </div>
+
+
+
+
+                <div class="pref-tile">
+                    <div class="pref-tile-header">
+                        <h2>
+                        Specialist
+                        <button class="btn exp-button" type="button" style="float:right">
+                            <i class="fa fa-angle-double-down"></i>
+                        </button>
+                        </h2>
+                    </div>
+                    <div class="expandable">
+                        <h3 style="text-align:center; margin:0px;padding-bottom:10px">
+                            Turn on or off: &nbsp;&nbsp;
+                            <input class="sl1" style="width: 50px;"  data-slider-min="0"
+                            data-slider-max="1"/>
+                        </h3>
+                    </div>
+                    <div class="pref-tile-body">
+                        <hr>
+                        <h3>In Network</h3>
+                        <div class="panel panel-default">
+                            <div class="btn-group btn-input clearfix">
+                                <button type="button" class="btn btn-default dropdown-toggle form-control" data-toggle="dropdown">
+                                    <span data-bind="label">Select One</span>&nbsp;<span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="#">No co-payment please!</a></li>
+                                    <li><a href="#">Only co-payments after deductible</a></li>
+                                    <li><a href="#">Only co-payments before deductible</a></li>
+                                    <li><a href="#">Not important to me!</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <h3>Out of Network</h3>
+                        <div class="panel panel-default">
+                            <div class="btn-group btn-input clearfix">
+                                <button type="button" class="btn btn-default dropdown-toggle form-control" data-toggle="dropdown">
+                                    <span data-bind="label">Select One</span>&nbsp;<span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="#">No co-payment please!</a></li>
+                                    <li><a href="#">Only co-payments after deductible</a></li>
+                                    <li><a href="#">Only co-payments before deductible</a></li>
+                                    <li><a href="#">I just want out of network as an option</a></li>
+                                    <li><a href="#">Not important to me!</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="pref-tile">
+                    <div class="pref-tile-header">
+                        <h2>Emergency Room
+                            <button class="btn exp-button" type="button" style="float:right">
+                                <i class="fa fa-angle-double-down"></i>
+                            </button></h2>
+                    </div>
+                    <div class="expandable">
+                        <h3 style="text-align:center; margin:0px;padding-bottom:10px">
+                            Turn on or off: &nbsp;&nbsp;
+                            <input class="sl1" style="width: 50px;"  data-slider-min="0"
+                            data-slider-max="1"/>
+                        </h3>
+                    </div>
+                    <div class="pref-tile-body">
+                        <hr>
+                        <h3>In Network</h3>
+                        <div class="panel panel-default">
+                            <div class="btn-group btn-input clearfix">
+                                <button type="button" class="btn btn-default dropdown-toggle form-control" data-toggle="dropdown">
+                                    <span data-bind="label">Select One</span>&nbsp;<span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="#">No co-payment please!</a></li>
+                                    <li><a href="#">Only co-payments after deductible</a></li>
+                                    <li><a href="#">Only co-payments before deductible</a></li>
+                                    <li><a href="#">Not important to me!</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <h3>Out of Network</h3>
+                        <div class="panel panel-default">
+                            <div class="btn-group btn-input clearfix">
+                                <button type="button" class="btn btn-default dropdown-toggle form-control" data-toggle="dropdown">
+                                    <span data-bind="label">Select One</span>&nbsp;<span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="#">No co-payment please!</a></li>
+                                    <li><a href="#">Only co-payments after deductible</a></li>
+                                    <li><a href="#">Only co-payments before deductible</a></li>
+                                    <li><a href="#">I just want out of network as an option</a></li>
+                                    <li><a href="#">Not important to me!</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
 
             </div>
 
@@ -285,12 +401,12 @@
             $('.pref-tile-body').hide();
             $('.exp-button').on('click', function(){
 
-                var expandText = "<i class='fa fa-angle-double-down'></i> expand";
-                var collapseText = "<i class='fa fa-angle-double-up'></i> collapse";
+                var expandText = "<i class='fa fa-angle-double-down'></i>";
+                var collapseText = "<i class='fa fa-angle-double-up'></i>";
 
                 $(this).closest('div').siblings(".pref-tile-body").toggle();
 
-                if($(this).html().search('expand') != -1) {
+                if($(this).html().search('down') != -1) {
                     $(this).html(collapseText);
                 } else {
                     $(this).html(expandText);
