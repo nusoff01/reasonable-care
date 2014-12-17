@@ -36,4 +36,10 @@ At this point, Reasonable Care is a proof of concept. There are a limited
 number of ways to filter results, and many of those even are simplified to,
 say, only apply to healthy 27 year olds who don't smoke. But the general ideas
 are all there, and I hope we've proven in creating this that it is possible to
-make something that functions to help MA residents choose health insurance that has a better user interface than the MA Health Connector.
+make something that functions to help MA residents choose health insurance that
+has a better user interface than the MA Health Connector.
+
+Other things we have not implemented: currently this only for MA region 2, we
+would like to expand this to all of Massachusetts and allow the user to specify
+their zipcode. Also, features like physicians and drugs have not been
+implemented since we could not find adequate data to include them.
