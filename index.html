@@ -312,10 +312,14 @@
                 </h1>
                 <div class="plan-tile">
                     <div class="plan-tile-header">
-                        <h2>MyDoc HMO SimpleCare</h2>
+                        <h2>MyDoc HMO SimpleCare
+                        <button class="btn exp-button primary-button" type="button" style="float:right">
+                            <i class="fa fa-angle-double-down"></i>
+                        </button>
+                        </h2>
                     </div>
-                    <div class="plan-tile-body">
-                        <h3>
+                    <div class="expandable">
+                         <h3>
                             Deduct vs. Prem:
                             <span style="float:right"class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
                             <span style="float:right"class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
@@ -350,8 +354,18 @@
                             <span style="float:right"class="glyphicon glyphicon-star" aria-hidden="true"></span>
                         </h3>
                         <hr class="separator-tight" />
-
-
+                    </div>
+                    <div class="plan-tile-body">
+                        <h4>
+                        Annual Deductible: $2400 <br/>
+                        Monthly Premium: $234.40 <br/>
+                        Co-payment for Primary Care, in network: free! <br/>
+                        Co-payment for Primary Care, out of network: Not covered <br/>
+                        Co-payment for Specialist, in network: $100 before deductible<br/>
+                        Co-payment for Specialist, out of network: $100<br/>
+                        Co-payment for Emergency Room, in network: free! <br/>
+                        Co-payment for Emergency Room, out of network: Not covered <br/>
+                        </h4>
                     </div>
                     <!-- <img class="img-responsive" src="http://placehold.it/700x300" alt=""> -->
                 </div>
@@ -433,12 +447,14 @@
         $(function(){
 
             $('.pref-tile-body').hide();
+            $('.plan-tile-body').hide();
             $('.exp-button').on('click', function(){
 
                 var expandText = "<i class='fa fa-angle-double-down'></i>";
                 var collapseText = "<i class='fa fa-angle-double-up'></i>";
 
                 $(this).closest('div').siblings(".pref-tile-body").toggle();
+                $(this).closest('div').siblings(".plan-tile-body").toggle();
 
                 if($(this).html().search('down') != -1) {
                     $(this).html(collapseText);
