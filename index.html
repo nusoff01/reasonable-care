@@ -148,7 +148,7 @@
                         <h3>In Network</h3>
                         <div class="panel panel-default">
                             <div class="btn-group btn-input clearfix">
-                                <button type="button" class="btn btn-default dropdown-toggle form-control" data-toggle="dropdown">
+                                <button type="button" class="btn btn-default dropdown-toggle form-control" data-toggle="dropdown" >
                                     <span data-bind="label" id="prim-care-in">Select One</span>&nbsp;<span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu" role="menu">
@@ -251,7 +251,7 @@
                                 <button type="button" class="btn btn-default dropdown-toggle form-control" data-toggle="dropdown">
                                     <span data-bind="label" id="er-in">Select One</span>&nbsp;<span class="caret"></span>
                                 </button>
-                                <ul class="dropdown-menu" role="menu">
+                                <ul class="dropdown-menu" role="menu" id="er-in">
                                     <li><a href="#">No co-payment please!</a></li>
                                     <li><a href="#">Only co-payments after deductible</a></li>
                                     <li><a href="#">Only co-payments before deductible</a></li>
@@ -278,7 +278,7 @@
                     </div>
                 </div>
                 <br/>
-                <button type="button" class="btn btn-primary btn-lg" style="margin: 0 auto; display:block" id="find-plan" ng-click="update(userPrefs)">
+                <button type="button" class="btn btn-primary btn-lg" style="margin: 0 auto; display:block" id="find-plan" ng-click="update()">
                     Find Plan
                 </button>
             </div>
@@ -398,8 +398,10 @@
             //     {"id": 2, "name": "plan2 yi"}
             // ];
             var userInput = new Object();
+            var plansData = new Object();
             plansFactory.getPlans().success(function(data){
                     console.log(data);
+                    plansData = data
                     $scope.plans = plansView(data, userInput);
                     console.log($scope.plans);
                     //$scope.plans = data;
@@ -410,6 +412,11 @@
                     console.log(data);
                     $scope.plans = data;
                 });
+            }
+            $scope.update = function(){
+                userInput = handleApply();
+                console.log(userInput);
+                $scope.plans = plansView(plansData, userInput);
             }
         });
 
@@ -429,8 +436,10 @@
             console.log(plansData.id);
             var plansFinal = new Object();
             plansFinal.name = plansData.Plan_Marketing_Name;
-            plansFinal.premRaw = plansData.Premium_Adult_Individual_Age_27;
-            plansFinal.deductRaw = plansData.Medical_Deductible_individual_in_network;
+            var premRawCurr = plansData.Premium_Adult_Individual_Age_27;
+            plansFinal.premRaw = Number(premRawCurr.replace(/[^0-9\.]+/g,""));
+            var deductRawCurr = plansData.Medical_Deductible_individual_in_network;
+            plansFinal.deductRaw = Number(deductRawCurr.replace(/[^0-9\.]+/g,""));
             var premStarsNum = calcPremStars(plansFinal.premRaw,
                                              plansFinal.deductRaw,
                                              userInput);
@@ -452,7 +461,7 @@
 
             plansFinal.erInRaw = plansData.Emergency_Room_in_network;
             plansFinal.erOutRaw = plansData.Emergency_Room_out_of_network;
-            var erStarsNum = calcPremStars(plansFinal.erInRaw,
+            var erStarsNum = calcErStars(plansFinal.erInRaw,
                                              plansFinal.erOutRaw,
                                              userInput);
             plansFinal.erStars = createStars(erStarsNum);
@@ -466,12 +475,15 @@
         // value is returned, otherwise -1 is returned
 
         function valExists(n){
-            return (n == "") ? -1 : n;
+            return (n == "Select One") ? -1 : n;
         }
 
         // function which takes a number of stars and outputs the html for that
         // many stars
         function createStars(numStars){
+            if(numStars == -1){
+                return "N/A";
+            }
             var outputString = "";
             var star = "<span style='float:right'class=' glyphicon glyphicon-star' aria-hidden='true'></span>";
             var starEmpty = "<span style='float:right'class=' glyphicon glyphicon-star-empty' aria-hidden='true'></span>";
@@ -488,16 +500,156 @@
 /*********************** Calculate num stars functions ***********************/
 
         function calcPremStars(premRaw, deductRaw, userInput){
-            return 1;
+
+            var userPref = userInput.deductVal;
+            console.log("actually called function: "+ userPref);
+            console.log("premRaw:" + premRaw);
+            console.log("deductRaw" + deductRaw)
+            if(userPref == -1) return -1;
+            if(userPref == 0){
+                if(deductRaw <= 1000) return 4;
+                if(deductRaw <= 2000) return 3;
+                if(deductRaw <= 3000) return 2;
+                if(deductRaw <= 4000) return 1;
+                return 0;
+            }
+            if(userPref == 1){
+                if(deductRaw >= 1200 && deductRaw <= 2400) return 4;
+                if(deductRaw <= 1200 || (deductRaw >= 3000 && deductRaw < 4000)) return 2;
+                if(deductRaw <= 3000) return 3;
+                if(deductRaw < 4000) return 1;
+                return 0;
+            }
+            if(userPref == 2){
+                if(premRaw <= 325 && premRaw >= 250) return 4;
+                if(premRaw <= 375 && premRaw >= 200) return 3;
+                if(premRaw <= 400 && premRaw >= 150) return 2;
+                if(premRaw <= 430 && premRaw >= 100) return 1;
+                return 0;
+            }
+            if(userPref == 3){
+                if(premRaw <= 250 && premRaw >= 150) return 4;
+                if(premRaw <= 300) return 3;
+                if(premRaw <= 350) return 2;
+                if(premRaw <= 375) return 1;
+                return 0;
+            }
+            if(userPref == 4){
+                if(premRaw <= 175) return 4;
+                if(premRaw <= 200) return 3;
+                if(premRaw <= 250) return 2;
+                if(premRaw <= 275) return 1;
+                return 0;
+            }
+            return -1;
         }
+
+/*  0 = no
+
+
+*/
+    //helper function which gets the score from 0-4 of a given metric by taking
+    //in the raw value and what the user prefers
+        function calcInScore(inRaw, userPref){
+            var inScore = 0;
+
+            if(userPref == -1) return -1;
+
+            if(userPref.indexOf("No co-payment please!") != -1){
+                if(inRaw.indexOf("$0") != -1) inScore = 4;
+                else inScore = 1;
+            }
+            if(userPref.indexOf("Only co-payments after deductible") != -1){
+                if(inRaw.indexOf("$0") != -1) inScore = 4;
+                else if(inRaw.indexOf("after deductible") != -1) inScore = 4;
+                else if(inRaw.indexOf("before deductible") != -1) inScore = 2;
+                else inScore = 1;
+            }
+            if(userPref.indexOf("Only co-payments before deductible") != -1){
+                if(inRaw.indexOf("$0") != -1) inScore = 4;
+                else if(inRaw.indexOf("before deductible") != -1) inScore = 4;
+                else if(inRaw.indexOf("after deductible") != -1) inScore = 2;
+                else inScore = 1;
+            }
+            if(userPref.indexOf("Not important") != -1){
+                return -1
+            }
+            return inScore;
+        }
+
+        //same thing, but for outScore
+        function calcOutScore(outRaw, userPref){
+            var outScore = 0;
+
+            if(userPref == -1) return -1;
+
+            if(userPref.indexOf("No co-payment please!") != -1){
+                if(outRaw.indexOf("$0") != -1) outScore = 4;
+                if(outRaw.indexOf("Not covered") != -1) outScore = 0;
+                else outScore = 1;
+            }
+            if(userPref.indexOf("Only co-payments after deductible") != -1){
+                if(outRaw.indexOf("$0") != -1) outScore = 4;
+                else if(outRaw.indexOf("after deductible") != -1) outScore = 4;
+                else if(outRaw.indexOf("before deductible") != -1) outScore = 2;
+                else if(outRaw.indexOf("Not covered") != -1) outScore = 0;
+                else outScore = 1;
+            }
+            if(userPref.indexOf("Only co-payments before deductible") != -1){
+                if(outRaw.indexOf("$0") != -1) outScore = 4;
+                else if(outRaw.indexOf("before deductible") != -1) outScore = 4;
+                else if(outRaw.indexOf("after deductible") != -1) outScore = 2;
+                else if(outRaw.indexOf("Not covered") != -1) outScore = 0;
+                else outScore = 1;
+            }
+            if(userPref.indexOf("I just want out of network as an option") != -1){
+                if(outRaw.indexOf("Not covered") != -1) outScore = 0;
+                else outScore = 4;
+            }
+            if(userPref.indexOf("Not important") != -1){
+                return -1
+            }
+            return outScore;
+        }
+
+        //putting the two together in one function
+        function calcScore(inRaw, outRaw, userPrefIn, userPrefOut){
+            var inScore = calcInScore(inRaw, userPrefIn);
+            var outScore = calcOutScore(outRaw, userPrefOut);
+            if(inScore == -1) return outScore;
+            if(outScore == -1) return inScore;
+            return parseInt((inScore + outScore) / 2);
+        }
+
         function calcPrimStars(primInRaw, primOutRaw, userInput){
-            return 1;
+            var userPrefIn = userInput.primCareIn;
+            var userPrefOut = userInput.primCareOut;
+            if(userPrefIn == undefined) userPrefIn = -1;
+            if(userPrefOut == undefined) userPrefOut = -1;
+            var score = calcScore(primInRaw, primOutRaw, userPrefIn, userPrefOut);
+            console.log("calcPrimStars score: " + score);
+            return score;
         }
+
+
+
         function calcSpecStars(specInRaw, specOutRaw, userInput){
-            return 1;
+            var userPrefIn = userInput.specIn;
+            var userPrefOut = userInput.specOut;
+            if(userPrefIn == undefined) userPrefIn = -1;
+            if(userPrefOut == undefined) userPrefOut = -1;
+            var score = calcScore(specInRaw, specOutRaw, userPrefIn, userPrefOut);
+            console.log("calcSpecStars score: " + score);
+            return score;
         }
         function calcErStars(erInRaw, erOutRaw, userInput){
-            return 1;
+            var userPrefIn = userInput.erIn;
+            var userPrefOut = userInput.erOut;
+            if(userPrefIn == undefined) userPrefIn = -1;
+            if(userPrefOut == undefined) userPrefOut = -1;
+            var score = calcScore(erInRaw, erOutRaw, userPrefIn, userPrefOut);
+            console.log("calcErStars score: " + score);
+            return score;
         }
 
         $("input.slider3").slider();
@@ -549,42 +701,45 @@
           return false;
         });
 
-        //event - user clicks on the "find plan" button, user input is processed
-        //        and the api is called
-        $('#find-plan').click(function(){
+
+        function handleApply(){
             var uInput = new Object();
+
+            console.log("prim-care-tog:" + $('#prim-care-tog').val());
+            console.log("prim-care-in:" + $('#prim-care-in').html());
+
             if($('#deduct-tog').val() == 1)
                 uInput.deductVal = $('#deduct-val').val();
             else
                 uInput.deductVal = -1;
 
             if($('#prim-care-tog').val() == 1){
-                uInput.primCareIn = valExists($('#prim-care-in').val());
-                uInput.primCareOut = valExists($('#prim-care-out').val());
+                uInput.primCareIn = valExists($('#prim-care-in').html());
+                uInput.primCareOut = valExists($('#prim-care-out').html());
             }
             else {
                 uInput.primCareIn = -1;
                 uInput.primCareOut = -1;
             }
             if($('#spec-tog').val() == 1){
-                uInput.specIn = valExists($('#spec-in').val());
-                uInput.specOut = valExists($('#spec-out').val());
+                uInput.specIn = valExists($('#spec-in').html());
+                uInput.specOut = valExists($('#spec-out').html());
             }
             else{
                 uInput.specIn = -1;
                 uInput.specOut = -1;
             }
             if($('#er-tog').val() == 1){
-                uInput.erIn = valExists($('#er-in').val());
-                uInput.erOut = valExists($('#er-out').val());
+                uInput.erIn = valExists($('#er-in').html());
+                uInput.erOut = valExists($('#er-out').html());
             }
             else{
                 uInput.erIn = -1;
                 uInput.erOut = -1;
             }
             console.log(uInput);
-        });
-
+            return uInput;
+        }
 
 
 
