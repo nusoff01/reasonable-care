@@ -96,4 +96,11 @@
 .separator-tight {
     margin-top: 5px;
     margin-bottom: 5px;
-};
+}
+
+#plan-table {border:solid 1px black; border-spacing:4px; border-collapse:separate;}
+
+#plan-table .c1 {
+    text-align: right;
+    padding-right:10px;
+}
