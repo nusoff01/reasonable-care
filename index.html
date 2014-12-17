@@ -287,71 +287,70 @@
                 <h1 class="page-header">Results
                     <small>Healthcare plans relevant to your preferences</small>
                 </h1>
-                <!-- <div class="plan-tile" ng-repeat="plan in plans"> -->
-                <div class="plan-tile">
+                <div class="plan-tile" ng-repeat="plan in plans">
                     <div class="plan-tile-header">
                         <h2>
-                        <button class="btn exp-button primary-button" type="button" style="float:left">
-                            <i class="fa fa-angle-double-down"></i>
-                        </button> &nbsp;&nbsp;{{ plans.name }}
+                            <button class="btn exp-button primary-button" type="button" style="float:left" onclick="alert('clicked')">
+                                <i class="fa fa-angle-double-down"></i>
+                            </button> &nbsp;&nbsp;{{ plan.name }}
                         </h2>
                     </div>
                     <div class="expandable" >
                         <h3>
-                            Deduct vs. Prem: <span ng-bind-html="plans.deductStars | unsafe"></span>
+                            Deduct vs. Prem: <span ng-bind-html="plan.deductStars | unsafe"></span>
                         </h3>
                         <hr class="separator-tight" />
 
                         <h3>
-                            Primary Care: <span ng-bind-html="plans.primStars | unsafe"></span>
+                            Primary Care: <span ng-bind-html="plan.primStars | unsafe"></span>
                         </h3>
                         <hr class="separator-tight" />
 
                         <h3>
-                            Specialist: <span ng-bind-html="plans.specStars | unsafe"></span>
+                            Specialist: <span ng-bind-html="plan.specStars | unsafe"></span>
                         </h3>
                         <hr class="separator-tight" />
 
                         <h3>
-                            Emergency Care: <span ng-bind-html="plans.erStars | unsafe"></span>
+                            Emergency Care: <span ng-bind-html="plan.erStars | unsafe"></span>
                         </h3>
                         <hr class="separator-tight" />
                     </div>
                     <div class="plan-tile-body">
-                        <table id="plan-table" style="display:block; margin:0 auto;">
+                        <table class="plan-table" style="display:block; margin:0 auto;">
                             <col class="c1" />
                             <col class="c2" />
                             <tr>
                                 <td>Annual Deductible: </td>
-                                <td>{{ plans.deductRaw }}</td>
+                                <td>{{ plan.deductRaw }}</td>
                             </tr>
                             <tr>
                                 <td>Monthly Premium: </td>
-                                <td>{{ plans.premRaw }}</td>
+                                <td>{{ plan.premRaw }}</td>
                             </tr>
                             <tr>
                                 <td>Co-payment for Primary Care, in network: </td>
-                                <td>{{ plans.primInRaw }}</td>
+                                <td>{{ plan.primInRaw }}</td>
                             </tr>
                             <tr>
                                 <td>Co-payment for Primary Care, out of network: </td>
-                                <td>{{ plans.primOutRaw }}</td>
+                                <td>{{ plan.primOutRaw }}</td>
                             </tr>
                             <tr>
                                 <td>Co-payment for Specialist, in network: </td>
-                                <td>{{ plans.specInRaw }}</td>
+                                <td>{{ plan.specInRaw }}</td>
                             </tr>
                             <tr>
                                 <td>Co-payment for Specialist, out of network: </td>
-                                <td>{{ plans.specOutRaw }}</td>
+                                <td>{{ plan.specOutRaw }}</td>
                             </tr>
                             <tr>
                                 <td>Co-payment for Emegency Room, in network: </td>
-                                <td>{{ plans.erInRaw }}</td>
+                                <td>{{ plan.erInRaw }}</td>
                             </tr>
                             <tr>
                                 <td>Co-payment for Emergency Room, out of network:</td>
-                                <td>{{ plans.erOutRaw }}</td>
+                                <td>{{ plan.erOutRaw }}</td>
                             </tr>
                         </table>
                     </div>
@@ -393,10 +392,6 @@
 
 
         app.controller('plansController', function($scope, plansFactory){
-            // $scope.plans = [
-            //     {"id": 1, "name": "plan1 has a very long name which goes over"},
-            //     {"id": 2, "name": "plan2 yi"}
-            // ];
             var userInput = new Object();
             var plansData = new Object();
             plansFactory.getPlans().success(function(data){
@@ -412,7 +407,7 @@
             }
             $scope.update = function(){
                 userInput = handleApply();
-                console.log(userInput);
+
                 $scope.plans = plansView(plansData, userInput);
             }
         });
@@ -420,8 +415,8 @@
         app.factory('plansFactory', function($http){
             var factory = {};
             factory.getPlans = function(){
-                return $http.get('https://healthexchangeapi.herokuapp.com/plan/7144');
-                //return $http.get('https://healthexchangeapi.herokuapp.com/search/MA/1');
+                //return $http.get('https://healthexchangeapi.herokuapp.com/plan/7144');
+                return $http.get('https://healthexchangeapi.herokuapp.com/search/MA/1');
             }
             return factory
         })
@@ -429,42 +424,43 @@
         //function which compares user input and plan data and creates the plansFinal
         //object which is used to render the view
         function plansView(plansData, userInput){
-            console.log("in plansView function");
-            console.log(plansData.id);
-            var plansFinal = new Object();
-            plansFinal.name = plansData.Plan_Marketing_Name;
-            var premRawCurr = plansData.Premium_Adult_Individual_Age_27;
-            plansFinal.premRaw = Number(premRawCurr.replace(/[^0-9\.]+/g,""));
-            var deductRawCurr = plansData.Medical_Deductible_individual_in_network;
-            plansFinal.deductRaw = Number(deductRawCurr.replace(/[^0-9\.]+/g,""));
-            var premStarsNum = calcPremStars(plansFinal.premRaw,
-                                             plansFinal.deductRaw,
-                                             userInput);
-            plansFinal.deductStars = createStars(premStarsNum);
+            var planArr = new Array();
+            for(var i = 0; i < plansData.length; i++){
+                var plansFinal = new Object();
+                plansFinal.name = plansData[i].Plan_Marketing_Name;
+                var premRawCurr = plansData[i].Premium_Adult_Individual_Age_27;
+                plansFinal.premRaw = Number(premRawCurr.replace(/[^0-9\.]+/g,""));
+                var deductRawCurr = plansData[i].Medical_Deductible_individual_in_network;
+                plansFinal.deductRaw = Number(deductRawCurr.replace(/[^0-9\.]+/g,""));
+                var premStarsNum = calcPremStars(plansFinal.premRaw,
+                                                 plansFinal.deductRaw,
+                                                 userInput);
+                plansFinal.deductStars = createStars(premStarsNum);
 
-            plansFinal.primInRaw = plansData.Primary_Care_Physician_in_network;
-            plansFinal.primOutRaw = plansData.Primary_Care_Physician_out_of_network;
-            var primStarsNum = calcPrimStars(plansFinal.primInRaw,
-                                             plansFinal.primOutRaw,
-                                             userInput);
-            plansFinal.primStars = createStars(primStarsNum);
+                plansFinal.primInRaw = plansData[i].Primary_Care_Physician_in_network;
+                plansFinal.primOutRaw = plansData[i].Primary_Care_Physician_out_of_network;
+                var primStarsNum = calcPrimStars(plansFinal.primInRaw,
+                                                 plansFinal.primOutRaw,
+                                                 userInput);
+                plansFinal.primStars = createStars(primStarsNum);
 
-            plansFinal.specInRaw = plansData.Specialist_in_network;
-            plansFinal.specOutRaw = plansData.Specialist_out_of_network;
-            var specStarsNum = calcSpecStars(plansFinal.specInRaw,
-                                             plansFinal.specOutRaw,
-                                             userInput);
-            plansFinal.specStars = createStars(specStarsNum);
+                plansFinal.specInRaw = plansData[i].Specialist_in_network;
+                plansFinal.specOutRaw = plansData[i].Specialist_out_of_network;
+                var specStarsNum = calcSpecStars(plansFinal.specInRaw,
+                                                 plansFinal.specOutRaw,
+                                                 userInput);
+                plansFinal.specStars = createStars(specStarsNum);
 
-            plansFinal.erInRaw = plansData.Emergency_Room_in_network;
-            plansFinal.erOutRaw = plansData.Emergency_Room_out_of_network;
-            var erStarsNum = calcErStars(plansFinal.erInRaw,
-                                             plansFinal.erOutRaw,
-                                             userInput);
-            plansFinal.erStars = createStars(erStarsNum);
-
-            console.log(JSON.stringify(plansFinal));
-            return plansFinal;
+                plansFinal.erInRaw = plansData[i].Emergency_Room_in_network;
+                plansFinal.erOutRaw = plansData[i].Emergency_Room_out_of_network;
+                var erStarsNum = calcErStars(plansFinal.erInRaw,
+                                                 plansFinal.erOutRaw,
+                                                 userInput);
+                plansFinal.erStars = createStars(erStarsNum);
+                planArr[i] = plansFinal;
+            }
+            console.log(JSON.stringify(planArr));
+            return planArr;
         }
 
 
@@ -498,9 +494,7 @@
 
         function calcPremStars(premRaw, deductRaw, userInput){
             var userPref = userInput.deductVal;
-            console.log("actually called function: "+ userPref);
-            console.log("premRaw:" + premRaw);
-            console.log("deductRaw" + deductRaw)
+
             if(userPref == -1) return -1;
             if(userPref == 0){
                 if(deductRaw <= 1000) return 4;
@@ -619,7 +613,6 @@
             if(userPrefIn == undefined) userPrefIn = -1;
             if(userPrefOut == undefined) userPrefOut = -1;
             var score = calcScore(primInRaw, primOutRaw, userPrefIn, userPrefOut);
-            console.log("calcPrimStars score: " + score);
             return score;
         }
         function calcSpecStars(specInRaw, specOutRaw, userInput){
@@ -628,7 +621,6 @@
             if(userPrefIn == undefined) userPrefIn = -1;
             if(userPrefOut == undefined) userPrefOut = -1;
             var score = calcScore(specInRaw, specOutRaw, userPrefIn, userPrefOut);
-            console.log("calcSpecStars score: " + score);
             return score;
         }
         function calcErStars(erInRaw, erOutRaw, userInput){
@@ -637,7 +629,6 @@
             if(userPrefIn == undefined) userPrefIn = -1;
             if(userPrefOut == undefined) userPrefOut = -1;
             var score = calcScore(erInRaw, erOutRaw, userPrefIn, userPrefOut);
-            console.log("calcErStars score: " + score);
             return score;
         }
 
@@ -744,8 +735,8 @@
                 var collapseText = "<i class='fa fa-angle-double-up'></i>";
 
                 $(this).closest('div').siblings(".pref-tile-body").toggle();
-                $(this).closest('div').siblings(".plan-tile-body").toggle();
-
+                $(this).closest('div').parent().parent().siblings(".plan-tile-body").toggle();
+                console.log($(this).closest('div').parent().parent().siblings(".plan-tile-body"));
                 if($(this).html().search('down') != -1) {
                     $(this).html(collapseText);
                 } else {

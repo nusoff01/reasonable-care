@@ -98,9 +98,9 @@
     margin-bottom: 5px;
 }
 
-#plan-table {border:solid 1px black; border-spacing:4px; border-collapse:separate;}
+.plan-table {border:solid 1px black; border-spacing:4px; border-collapse:separate;}
 
-#plan-table .c1 {
+.plan-table .c1 {
     text-alig
     padding-right:10px;
 }
