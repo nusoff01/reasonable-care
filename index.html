@@ -400,16 +400,13 @@
             var userInput = new Object();
             var plansData = new Object();
             plansFactory.getPlans().success(function(data){
-                    console.log(data);
+
                     plansData = data
                     $scope.plans = plansView(data, userInput);
-                    console.log($scope.plans);
-                    //$scope.plans = data;
+
                 });
             function init() {
                 plansFactory.getPlans().success(function(data){
-                    console.log("reached here");
-                    console.log(data);
                     $scope.plans = data;
                 });
             }
@@ -500,7 +497,6 @@
 /*********************** Calculate num stars functions ***********************/
 
         function calcPremStars(premRaw, deductRaw, userInput){
-
             var userPref = userInput.deductVal;
             console.log("actually called function: "+ userPref);
             console.log("premRaw:" + premRaw);
@@ -544,10 +540,6 @@
             return -1;
         }
 
-/*  0 = no
-
-
-*/
     //helper function which gets the score from 0-4 of a given metric by taking
     //in the raw value and what the user prefers
         function calcInScore(inRaw, userPref){
@@ -630,9 +622,6 @@
             console.log("calcPrimStars score: " + score);
             return score;
         }
-
-
-
         function calcSpecStars(specInRaw, specOutRaw, userInput){
             var userPrefIn = userInput.specIn;
             var userPrefOut = userInput.specOut;
@@ -651,6 +640,8 @@
             console.log("calcErStars score: " + score);
             return score;
         }
+
+/*****************************************************************************/
 
         $("input.slider3").slider();
         $('input.sl1').slider({
@@ -705,8 +696,6 @@
         function handleApply(){
             var uInput = new Object();
 
-            console.log("prim-care-tog:" + $('#prim-care-tog').val());
-            console.log("prim-care-in:" + $('#prim-care-in').html());
 
             if($('#deduct-tog').val() == 1)
                 uInput.deductVal = $('#deduct-val').val();
@@ -737,7 +726,7 @@
                 uInput.erIn = -1;
                 uInput.erOut = -1;
             }
-            console.log(uInput);
+
             return uInput;
         }
 
@@ -779,7 +768,6 @@
                 var alpha = 0.15
                 var elem = $(this).parent().parent().parent().parent();
                 if($(this).val() == 0){
-                    console.log('turned on the toggle');
                     alpha = .6;
 
                     elem.css('background-color', 'rgba(0,0,0,' + alpha + ')');

@@ -1,26 +1,19 @@
-# [Start Bootstrap](http://startbootstrap.com/) - [1 Col Portfolio](http://startbootstrap.com/template-overviews/1-col-portfolio/)
+Reasonable Care Front End and UX
 
-[1 Col Portfolio](http://startbootstrap.com/template-overviews/1-col-portfolio/) is a one column portfolio template for [Bootstrap](http://getbootstrap.com/) created by [Start Bootstrap](http://startbootstrap.com/).
+This Repository holds all of the frontend code for the reasonable care rpoject.
 
-## Getting Started
+Reasonable Care is a web application which allows users to browse health care
+plans and come to a conlusion about which plans they would like to look into
+further. Users are allowed to select which of four metrics they would like to
+factor in to their search (they are all on upon page load). These metrics are:
+deductible vs. Premium, co-pays for primary care, co-pays for a specialist, and
+co-pays for a specialist. Resulting plans are then assigned a 0-4 star score in
+each of those metrics which the user has turned (or left) on.
 
-To use this template, choose one of the following options to get started:
-* Download the latest release on Start Bootstrap
-* Fork this repository on GitHub
-
-## Bugs and Issues
-
-Have a bug or an issue with this template? [Open a new issue](https://github.com/IronSummitMedia/startbootstrap-1-col-portfolio/issues) here on GitHub or leave a comment on the [template overview page at Start Bootstrap](http://startbootstrap.com/template-overviews/1-col-portfolio/).
-
-## Creator
-
-Start Bootstrap was created by and is maintained by **David Miller**, Managing Parter at [Iron Summit Media Strategies](http://www.ironsummitmedia.com/).
-
-* https://twitter.com/davidmillerskt
-* https://github.com/davidtmiller
-
-Start Bootstrap is based on the [Bootstrap](http://getbootstrap.com/) framework created by [Mark Otto](https://twitter.com/mdo) and [Jacob Thorton](https://twitter.com/fat).
-
-## Copyright and License
-
-Copyright 2014 Iron Summit Media Strategies, LLC. Code released under the [Apache 2.0](https://github.com/IronSummitMedia/startbootstrap-1-col-portfolio/blob/gh-pages/LICENSE) license.
+Note: at this point, Reasonable Care is a proof of concept. There are a limited
+      number of ways to filter results, and many of those even are simplified
+      to, say, only apply to healthy 27 year olds who don't smoke. But the
+      general ideas are all there, and I hope we've proven in creating this
+      that it is possible to make something that functions to help MA residents
+      choose health insurance that has a better user interface than the MA
+      Health Connector.
