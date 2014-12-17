@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>1 Col Portfolio - Start Bootstrap Template</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/1-col-portfolio.css" rel="stylesheet">
+
+    <!-- my own css -->
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- slider styling -->
+    <link href="slider/css/slider.css" rel="stylesheet">
+
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <style>
+    /*.container {
+        background: #fff;
+    }
+    #alert {
+        display: none;
+    }
+  #sl1 {
+    width: 50px;
+  }
+
+  #eg .slider-selection {
+    background: #BABABA;
+  }*/
+    </style>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Start Bootstrap</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="#">About</a>
+                    </li>
+                    <li>
+                        <a href="#">Services</a>
+                    </li>
+                    <li>
+                        <a href="#">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-5">
+                <h1 class="page-header">Preferences
+                    <small>Filter by what you care about</small>
+                </h1>
+                <div class="pref-tile">
+                    <div class="pref-tile-header">
+                        <h2>Deductible vs. Premium</h2>
+                    </div>
+                    <div class="expandable">
+
+                        <h3 style="text-align:center; margin:0px;padding-bottom:10px">
+                                Turn on or off: &nbsp;&nbsp;
+                                <input class="sl1" style="width: 50px;"  data-slider-min="0"
+                                data-slider-max="1"/>
+                                <button class="btn exp-button" type="button" style="float:right">
+                                    <i class="fa fa-angle-double-down"></i> expand
+                                </button>
+                            </h3>
+                    </div>
+                    <div class="pref-tile-body">
+                        <hr>
+                            <h3 style="text-align:center; margin:0px;">
+                                <input class="slDeduct" style="width: 100%;"  data-slider-min="0"
+                                data-slider-max="4"/> <br/>
+                            </h3>
+                    </div>
+                </div>
+
+                <div class="pref-tile">
+                    <div class="pref-tile-header">
+                        <h2>Covered Drugs</h2>
+                    </div>
+                    <div class="expandable">
+                        <h3 style="text-align:center; margin:0px;padding-bottom:10px">
+                            Turn on or off: &nbsp;&nbsp;
+                            <input class="sl1" style="width: 50px;"  data-slider-min="0"
+                            data-slider-max="1" data-slider-val="0"/>
+                            <button class="btn exp-button" type="button" style="float:right">
+                                <i class="fa fa-angle-double-down"></i> expand
+                            </button>
+                        </h3>
+                    </div>
+                    <div class="pref-tile-body">
+                        <hr>
+                        <h3 style="text-align:center; margin:0px;">
+                            <input type="text"style="width: 100%;" placeholder="Enter drugs you'd like covered"> <br/>
+                        </h3>
+                        <h4>Note: Feature currently unavailable!</h4>
+                    </div>
+                </div>
+
+
+                <div class="pref-tile">
+                    <div class="pref-tile-header">
+                        <h2>Primary Care</h2>
+                    </div>
+                    <div class="expandable">
+                        <h3 style="text-align:center; margin:0px;padding-bottom:10px">
+                            Turn on or off: &nbsp;&nbsp;
+                            <input class="sl1" style="width: 50px;"  data-slider-min="0"
+                            data-slider-max="1"/>
+                            <button class="btn exp-button" type="button" style="float:right">
+                                <i class="fa fa-angle-double-down"></i> expand
+                            </button>
+                        </h3>
+                    </div>
+                    <div class="pref-tile-body">
+                        <hr>
+                        <h3>In Network</h3>
+                        <div class="panel panel-default">
+                            <div class="btn-group btn-input clearfix">
+                                <button type="button" class="btn btn-default dropdown-toggle form-control" data-toggle="dropdown">
+                                    <span data-bind="label">Select One</span>&nbsp;<span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="#">No co-payment please!</a></li>
+                                    <li><a href="#">Only co-payments after deductible</a></li>
+                                    <li><a href="#">Only co-payments before deductible</a></li>
+                                    <li><a href="#">Not important to me!</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <h3>Out of Network</h3>
+                        <div class="panel panel-default">
+                            <div class="btn-group btn-input clearfix">
+                                <button type="button" class="btn btn-default dropdown-toggle form-control" data-toggle="dropdown">
+                                    <span data-bind="label">Select One</span>&nbsp;<span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="#">No co-payment please!</a></li>
+                                    <li><a href="#">Only co-payments after deductible</a></li>
+                                    <li><a href="#">Only co-payments before deductible</a></li>
+                                    <li><a href="#">I just want out of network as an option</a></li>
+                                    <li><a href="#">Not important to me!</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-md-7">
+                <h1 class="page-header">Results
+                    <small>Healthcare plans relevant to your preferences</small>
+                </h1>
+                <div class="plan-tile">
+                    <div class="plan-tile-header">
+                        <h2>MyDoc HMO SimpleCare</h2>
+                    </div>
+                    <div class="plan-tile-body">
+                        <h3>
+                            Some filler text for your dringus
+                        </h3>
+                    </div>
+                    <!-- <img class="img-responsive" src="http://placehold.it/700x300" alt=""> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </div>
+    <!-- /.container -->
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- JS for slider -->
+    <script src="slider/js/bootstrap-slider.js"></script>
+    <script>
+        $("input.slider3").slider();
+        $('input.sl1').slider({
+                formater: function(value) {
+                    if(value == 0){
+
+                        return "OFF"
+                    } else {
+                        return "ON"
+                    }
+                }
+            });
+
+        $('input.slDeduct').slider({
+            formater: function(value) {
+                if(value == 0)
+                    return "Cheapest Deductible"
+                if(value == 1)
+                    return "Cheaper Deductible"
+                if(value == 2)
+                    return "Even"
+                if(value == 3)
+                    return "Cheaper Premium"
+                else
+                    return "Cheapest Premium"
+            }
+        });
+
+
+
+        $('input.slPrimIn').slider({
+            formater: function(value) {
+                if(value == 0)
+                    return "No co-payments please!"
+                if(value == 1)
+                    return "Only Copayments after deductible"
+                if(value == 2)
+                    return "Only Copayment before deductible"
+                else
+                    return "Not important to me!"
+            }
+        })
+
+
+        $( document.body ).on( 'click', '.dropdown-menu li', function( event ) {
+
+          var $target = $( event.currentTarget );
+
+          $target.closest( '.btn-group' )
+             .find( '[data-bind="label"]' ).text( $target.text() )
+                .end()
+             .children( '.dropdown-toggle' ).dropdown( 'toggle' );
+
+          return false;
+
+        });
+
+
+
+
+        $(function(){
+
+            $('.pref-tile-body').hide();
+            $('.exp-button').on('click', function(){
+
+                var expandText = "<i class='fa fa-angle-double-down'></i> expand";
+                var collapseText = "<i class='fa fa-angle-double-up'></i> collapse";
+
+                $(this).closest('div').siblings(".pref-tile-body").toggle();
+
+                if($(this).html().search('expand') != -1) {
+                    $(this).html(collapseText);
+                } else {
+                    $(this).html(expandText);
+                }
+            });
+
+
+            window.prettyPrint && prettyPrint();
+            $('.switch').slider({
+                formater: function(value) {
+                    if(value == 0){
+                        return "OFF"
+                    } else {
+                        return "ON"
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
